@@ -47,8 +47,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if (password_verify($password,$result['password'])) {
             // Insert data into the database
             echo "yessss";
-            header("Location : contact.php");
-            exit();
         }
         else{
             echo "Nooooo";
