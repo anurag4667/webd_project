@@ -8,10 +8,6 @@
 <body>
     <?php
     echo "welcome";
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        echo "WELCOME ";
-        echo $_POST['username']." ".$_POST['password'];
-    }
     ?>
 
     <button onclick = "redirectlogin()">BACK</button>
