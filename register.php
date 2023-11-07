@@ -24,35 +24,37 @@ $database = "test";
 
 $conn = mysqli_connect('localhost','root','anurag','anurag');
 
-if ($conn) {
-    echo "connection successfull";
+if (!$conn) {
+    echo "error in connecting";
 }
-
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $userid = $_POST['userid'];
-    $password = $_POST['password'];
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phoneno = $_POST['phoneno'];
-    
-    $hash_password = password_hash($password, PASSWORD_DEFAULT);
-    // Check if the userid is unique
-    $sql = "SELECT * FROM user WHERE userid = '$userid'";
-    $result = mysqli_query($conn,$sql);
-    
-    if (mysqli_num_rows($result) == 0) {
-        // Insert data into the database
-        $insertSql = "INSERT INTO user (userid, password, name, email, phoneno) VALUES ('$userid', '$hash_password', '$name', '$email', '$phoneno')";
-        if (mysqli_query($conn,$insertSql) === TRUE) {
-            echo "Registration successful! You can now <a href='index.php'>login</a>.";
+else{
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $userid = $_POST['userid'];
+        $password = $_POST['password'];
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phoneno = $_POST['phoneno'];
+        
+        $hash_password = password_hash($password, PASSWORD_DEFAULT);
+        // Check if the userid is unique
+        $sql = "SELECT * FROM user WHERE userid = '$userid'";
+        $result = mysqli_query($conn,$sql);
+        
+        if (mysqli_num_rows($result) == 0) {
+            // Insert data into the database
+            $insertSql = "INSERT INTO user (userid, password, name, email, phoneno) VALUES ('$userid', '$hash_password', '$name', '$email', '$phoneno')";
+            if (mysqli_query($conn,$insertSql) === TRUE) {
+                echo "Registration successful! You can now <a href='index.php'>login</a>.";
+            } else {
+                echo "Error: <br>";
+            }
         } else {
-            echo "Error: <br>";
+            echo "Error: User ID already exists. Please choose a different User ID.";
         }
-    } else {
-        echo "Error: User ID already exists. Please choose a different User ID.";
     }
+    
+    mysqli_close($conn);
 }
 
-mysqli_close($conn);
 ?>
 </html>
