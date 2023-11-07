@@ -6,6 +6,49 @@
     <title>Document</title>
 </head>
 <body>
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "anurag";
+$database = "test";
+
+$conn = mysqli_connect('localhost','root','anurag','anurag');
+
+if (!$conn) {
+    echo "error in connecting";
+}
+else{
+    $userid_error = "";
+    $password_error = "";
+    
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+    
+        $hash_password = password_hash($password, PASSWORD_DEFAULT);
+    
+        $query = "select * from user where userid = '$username'";
+        $result = mysqli_query($conn,$query);
+        if (mysqli_num_rows($result) == 0) {
+            // Insert data into the database
+            header("location: index.php");
+        }
+        else{
+            $result = mysqli_fetch_array($result);
+            if (password_verify($password,$result['password'])) {
+                // Insert data into the database
+                echo "user found";
+            }
+            else{
+                header("location: index.php");
+            }
+        }
+    }
+    
+    mysqli_close($conn);
+}
+
+?>
     <h1>WELCOME</h1>
     <h2>SELECT THE USER YOU WANT TO MESSAGE</h2>
     <form action="message.php" method = "POST">
