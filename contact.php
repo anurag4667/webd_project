@@ -51,7 +51,7 @@ else{
 ?>
     <h1>WELCOME</h1>
     <h2>SELECT THE USER YOU WANT TO MESSAGE</h2>
-    <form action="message.php" method = "POST">
+    <form action="message.php" method = "GET">
     <?php
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $user = $_POST['username'];
