@@ -63,6 +63,7 @@
                 window.location.href = "message.php?user1=<?php echo $user1; ?>&user2=<?php echo $user2; ?>";
             }
         }, 5000); // Refresh the page after 5 seconds if the message input is empty
-    </script>
+        //this is a test
+</script>
 </body>
 </html>
